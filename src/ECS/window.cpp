@@ -1,5 +1,7 @@
 #include "include/window.hpp"
 
+#include <iostream>
+
 // Settings
 
 window::WindowSettings::WindowSettings(const uint16_t width, const uint16_t length, const std::string &title) : _width(width), _length(length), _title(title)
@@ -27,17 +29,22 @@ window::SDLWindow::SDLWindow(const WindowSettings &settings) : _settings(setting
     _renderer.reset(renderer);
 }
 
-#include <iostream>
-
 void window::SDLWindow::displayTexture(SDL_Texture* texture, const ECS::Components::Position &position)
 {
     SDL_Rect rect{position.pos.x, position.pos.y, 0, 0};
 
-    SDL_QueryTexture(texture, nullptr, nullptr, &rect.w, &rect.h);
-    SDL_RenderCopy(_renderer.get(), texture, nullptr, &rect);
+    if (SDL_QueryTexture(texture, nullptr, nullptr, &rect.w, &rect.h) < 0)
+        std::cerr << "SDL_QueryTexture : " << SDL_GetError() << std::endl;
+    if (SDL_RenderCopy(_renderer.get(), texture, nullptr, &rect) < 0)
+        std::cerr << "SDL_RenderCopy : " << SDL_GetError() << std::endl;
 }
 
 void window::SDLWindow::update()
 {
     SDL_RenderPresent(_renderer.get());
+}
+
+void window::SDLWindow::clear()
+{
+    SDL_RenderClear(_renderer.get());
 }

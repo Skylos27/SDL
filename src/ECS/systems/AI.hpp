@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SDL.h>
+#include <chrono>
 
 #include "../include/system.hpp"
 #include "../include/window.hpp"
@@ -11,14 +12,16 @@
 namespace ECS {
     namespace Systems {
 
-        class RenderSystem : public System
+        class AISystem : public System
         {
             public:
-                void init(const std::shared_ptr<window::SDLWindow> &window);
+                void init(int w, int h);
                 void update();
 
             private:
-                std::shared_ptr<window::SDLWindow> _window; 
+                ECS::Components::Vector2 _windowSize;
+                std::chrono::high_resolution_clock _clock;
+                std::chrono::steady_clock::time_point _start;
         };
 
     }

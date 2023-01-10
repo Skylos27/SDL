@@ -6,6 +6,8 @@
 #include <memory>
 #include <stdexcept>
 
+#include "./basic.hpp"
+
 namespace ECS {
     namespace Components {
         
@@ -13,7 +15,7 @@ namespace ECS {
             SDL_Texture* texture;
         };
 
-        SDL_Texture* getTextureFromPath(std::unique_ptr<SDL_Renderer, decltype(&SDL_DestroyRenderer)> &windowRenderer, const std::string &path)
+        inline SDL_Texture* getTextureFromPath(std::unique_ptr<SDL_Renderer, decltype(&SDL_DestroyRenderer)> &windowRenderer, const std::string &path)
         {
             SDL_Surface *surface = IMG_Load(path.c_str());
             SDL_Texture *pictureTexture = nullptr;
