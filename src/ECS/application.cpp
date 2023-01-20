@@ -423,6 +423,6 @@ int application::MainApplication::loop()
         }
     }
     auto sheepNumber = AISystem->sheepNumber();
-    std::cout << "Score : " << sheepNumber; 
+    std::cout << "Score : " << sheepNumber << "\n"; 
     return 0;
 }
