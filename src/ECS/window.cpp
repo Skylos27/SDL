@@ -4,10 +4,11 @@
 
 // Settings
 
-window::WindowSettings::WindowSettings(const uint16_t width, const uint16_t length, const std::string &title) : _width(width), _length(length), _title(title)
+window::WindowSettings::WindowSettings(const uint16_t width, const uint16_t length, const std::string &title, const uint16_t sheep, const uint16_t wolves, const uint16_t time) 
+: _width(width), _length(length), _title(title), _wolves(wolves), _sheep(sheep), _time(time)
 {}
 
-window::WindowSettings::WindowSettings(const WindowSettings &other): _width(other.width()), _length(other.length()), _title(other.title())
+window::WindowSettings::WindowSettings(const WindowSettings &other): _width(other.width()), _length(other.length()), _title(other.title()), _wolves(other.wolves()), _sheep(other.sheep()), _time(other.time())
 {}
 
 // MainWindow
@@ -29,13 +30,11 @@ window::SDLWindow::SDLWindow(const WindowSettings &settings) : _settings(setting
     _renderer.reset(renderer);
 }
 
-void window::SDLWindow::displayTexture(SDL_Texture* texture, const ECS::Components::Position &position)
+void window::SDLWindow::displayTexture(SDL_Texture* texture, const ECS::Components::Position &position, const std::pair<int, int> &size)
 {
-    SDL_Rect rect{position.pos.x, position.pos.y, 0, 0};
+    SDL_FRect rect{position.pos.x, position.pos.y, static_cast<float>(size.first), static_cast<float>(size.second)};
 
-    if (SDL_QueryTexture(texture, nullptr, nullptr, &rect.w, &rect.h) < 0)
-        std::cerr << "SDL_QueryTexture : " << SDL_GetError() << std::endl;
-    if (SDL_RenderCopy(_renderer.get(), texture, nullptr, &rect) < 0)
+    if (SDL_RenderCopyF(_renderer.get(), texture, nullptr, &rect) < 0)
         std::cerr << "SDL_RenderCopy : " << SDL_GetError() << std::endl;
 }
 

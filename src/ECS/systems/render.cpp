@@ -15,7 +15,7 @@ void ECS::Systems::RenderSystem::update()
         auto &texture = coordinator.GetComponent<ECS::Components::ImageTexture>(entity);
         const auto &position = coordinator.GetComponent<ECS::Components::Position>(entity);
 
-        _window->displayTexture(texture.texture, position);
+        _window->displayTexture(texture.texture, position, std::make_pair(texture.w, texture.h));
     }
     _window->update();
 }

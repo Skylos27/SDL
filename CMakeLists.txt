@@ -1,6 +1,8 @@
 cmake_minimum_required (VERSION 3.0)
 project ("SDL2Test")
 
+set(CMAKE_CXX_STANDARD 17)
+
 IF(WIN32)
   message(STATUS "Building for windows")
 
@@ -41,7 +43,8 @@ IF(WIN32)
   include_directories(${SDL2IMAGE_INCLUDE_DIRS})
   link_directories(${SDL2_LINK_DIRS}, ${SDL2IMAGE_LINK_DIRS})
 
-  add_executable(SDL2Test src/main.cpp src/ECS/application.cpp src/ECS/window.cpp src/ECS/entity.cpp src/ECS/systems/render.cpp src/ECS/systems/AI.cpp)
+  add_executable(SDL2Test src/main.cpp src/ECS/application.cpp src/ECS/window.cpp src/ECS/entity.cpp src/ECS/systems/render.cpp src/ECS/systems/AI.cpp 
+          src/ECS/systems/RandomPath.cpp src/ECS/systems/DangerPath.cpp src/ECS/systems/SpeedSystem.cpp src/ECS/systems/GameState.cpp src/ECS/systems/PlayerSystem.cpp src/ECS/systems/DogPath.cpp)
   target_link_libraries(SDL2Test PUBLIC SDL2 SDL2main SDL2_image)
   add_dependencies(SDL2Test SDL2Dependancies)
 ELSE()
@@ -52,6 +55,7 @@ ELSE()
   include_directories(${SDL2_INCLUDE_DIRS})
   include_directories(${SDL2_IMAGE_INCLUDE_DIRS})
 
-  add_executable(SDL2Test src/main.cpp src/ECS/application.cpp src/ECS/window.cpp src/ECS/entity.cpp src/ECS/systems/render.cpp, src/ECS/systems/AI.cpp)
+  add_executable(SDL2Test src/main.cpp src/ECS/application.cpp src/ECS/window.cpp src/ECS/entity.cpp src/ECS/systems/render.cpp src/ECS/systems/AI.cpp 
+    src/ECS/systems/RandomPath.cpp src/ECS/systems/DangerPath.cpp src/ECS/systems/SpeedSystem.cpp src/ECS/systems/GameState.cpp src/ECS/systems/PlayerSystem.cpp src/ECS/systems/DogPath.cpp)
   target_link_libraries(SDL2Test ${SDL2_LIBRARIES} ${SDL2_IMAGE_LIBRARIES})
 ENDIF()
