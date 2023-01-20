@@ -21,7 +21,6 @@ bool ECS::Systems::GameStateSystem::gameShouldEnd()
 
     std::uint32_t sheeps = 0;
     std::uint32_t wolves = 0;
-    std::uint32_t last = 0;
 
     for (const auto &entity : Entities) {
         const auto &type = coordinator.GetComponent<ECS::Components::CharacterType>(entity);

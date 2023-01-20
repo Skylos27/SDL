@@ -99,8 +99,6 @@ int application::MainApplication::loop()
             }
         );
 
-        std::cout << "Entity : " << entity << " gender : " << coordinator.GetComponent<ECS::Components::CharacterInfo>(entity).gender << std::endl;
-
         return entity;
     };
 
@@ -248,13 +246,20 @@ int application::MainApplication::loop()
 
 	dogPathSystem->init(playerEntity);
 
+    float yWolf = _window->getSettings().length() - 50; 
     for (auto &wolf : wolves) {
         wolf = coordinator.CreateEntity();
+
+        if (x2 >= _window->getSettings().width()) {
+            x2 = 0;
+            yWolf -= 100;
+        }
+    
 
         coordinator.AddComponent<ECS::Components::Position>(
             wolf,
             ECS::Components::Position{
-                ECS::Components::Vector2F{static_cast<float>(x2), static_cast<float>(_window->getSettings().length() - 50)},
+                ECS::Components::Vector2F{static_cast<float>(x2), yWolf},
             }
         );
 
@@ -417,6 +422,7 @@ int application::MainApplication::loop()
             std::cerr << e.what() << '\n';
         }
     }
-
+    auto sheepNumber = AISystem->sheepNumber();
+    std::cout << "Score : " << sheepNumber; 
     return 0;
 }

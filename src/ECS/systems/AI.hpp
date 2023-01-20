@@ -19,6 +19,7 @@ namespace ECS {
         {
             public:
                 void init(int w, int h, const std::function<ECS::Entity(float, float)> &lambda);
+                int sheepNumber();
                 void update();
 
             private:

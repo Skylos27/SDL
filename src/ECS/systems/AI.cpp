@@ -80,6 +80,20 @@ bool ECS::Systems::AISystem::isDogClose(const ECS::Components::Position &posWolf
     return false;
 }
 
+int ECS::Systems::AISystem::sheepNumber()
+{
+    auto sheepNumber = 0;
+    for (const auto &x : Entities) {
+        const auto &type = coordinator.GetComponent<ECS::Components::CharacterType>(x);
+
+        if (type.type == ECS::Components::CharacterEnumType::SHEEP) {
+            sheepNumber += 1;
+        }
+    }
+
+    return sheepNumber;
+}
+
 void ECS::Systems::AISystem::update()
 {
     auto now = _clock.now();
