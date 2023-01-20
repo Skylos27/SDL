@@ -416,9 +416,6 @@ int application::MainApplication::loop()
         {
             std::cerr << e.what() << '\n';
         }
-        
-
-
     }
 
     return 0;
